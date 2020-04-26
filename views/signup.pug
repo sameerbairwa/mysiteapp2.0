@@ -1,0 +1,43 @@
+//doctype html
+// <?pug
+// require 'include/common.pug';
+// if (!isset($_SESSION['email']))
+// {
+// header('location: signup.pug');
+// }
+// ?>
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Signup | Life Style Store
+  link(href='css/bootstrap.css' rel='stylesheet')
+  link(href='css/style.css' rel='stylesheet')
+  script(src='js/jquery.js')
+  script(src='js/bootstrap.min.js')
+// <?pug
+// include 'include/header.pug'
+// ?>
+
+include includes/header.pug
+#content.container-fluid.decor_bg
+  .row
+    .container
+      .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3
+        h2 SIGN UP
+        form(action='../api/auth/signup' method='POST')
+          .form-group
+            input.form-control(placeholder='Name' name='name' required='')
+          .form-group
+            input.form-control(type='email' placeholder='Email' name='email' required='') 
+          .form-group
+            input.form-control(type='password' placeholder='Password' name='password' required='')
+          .form-group
+            input.form-control(type='text' placeholder='Contact' maxlength='10' size='10' name='contact' required='')
+          .form-group
+            input.form-control(type='text' placeholder='City' name='city' required='')
+          .form-group
+            input.form-control(type='text' placeholder='Address' name='address' required='')
+          button.btn.btn-primary(type='submit' name='submit') Submit
+footer
+  include includes/footer.pug
+  // <?pug  include 'include/footer.pug'  ?>
+

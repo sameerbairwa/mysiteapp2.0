@@ -1,0 +1,48 @@
+doctype html
+// <?pug
+// require 'include/common.pug';
+// if (!isset($_SESSION['email']))
+// {
+// header('location:login.pug ');
+// }
+// ?>
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Login | Life Style Store
+  link(href='css/bootstrap.min.css' rel='stylesheet')
+  link(href='css/style.css' rel='stylesheet')
+  script(src='js/jquery.js')
+  script(src='js/bootstrap.min.js')
+
+// <?pug
+// include 'include/header.pug'
+// ?>
+include includes/header.pug
+
+#content
+  #login-panel.container-fluid.decor_bg
+    .row
+      .col-md-4.col-md-offset-4
+        .panel.panel-primary
+          .panel-heading
+            h4 LOGIN
+          .panel-body
+            p.text-warning
+              i Login to make a purchase
+            p
+              form(role='form' action='../api/auth/login_submit' method='POST')
+                .form-group
+                  input.form-control(type='email' placeholder='Email' name='email' required='')
+                .form-group
+                  input.form-control(type='password' placeholder='Password' name='password' required='')
+                button.btn.btn-primary(type='submit' name='submit') Login
+                br
+                br
+              br
+          .panel-footer
+            p
+              | Don&apos;t have an account? 
+              a(href='signup') Register
+footer
+  include includes/footer.pug
+  // <?pug  include 'include/footer.pug'  ?>

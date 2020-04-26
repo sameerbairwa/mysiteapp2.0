@@ -1,0 +1,63 @@
+doctype html
+// <?pug
+// require 'include/common.pug';
+// if (isset($_SESSION['email']))
+// {
+// header('location: products.pug');
+// }
+// ?>
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Welcome | Life Style Store
+  // Bootstrap Core CSS
+  link(href='css/bootstrap.css' rel='stylesheet')
+  // Custom CSS
+  link(href='css/style.css' rel='stylesheet')
+  // jQuery
+  script(src='js/jquery.js')
+  // Bootstrap Core JavaScript
+  script(src='js/bootstrap.min.js')
+
+include includes/header.pug
+
+#content
+  // Main banner image
+  #banner_image
+    .container
+      center
+        #banner_content
+          h1 We sell lifestyle.
+          p Flat 40% OFF on premium brands 
+          br
+          a.btn.btn-danger.btn-lg.active(href='products') Shop Now
+  // Main banner image end
+  // Item categories listing
+  .container
+    #item_list.row.text-center
+      .col-sm-4
+        a(href='products#cameras')
+          .thumbnail
+            img(src='img/1.jpg' alt='')
+            .caption
+              h3 Cameras
+              p Choose among the best available in the world.
+      .col-sm-4
+        a(href='products#watches')
+          .thumbnail
+            img(src='img/10.jpg' alt='')
+            .caption
+              h3 Watches
+              p Original watches from the best brands.
+      .col-sm-4
+        a(href='products#shirts')
+          .thumbnail
+            img(src='img/13.jpg' alt='')
+            .caption
+              h3 Shirts
+              p Our exquisite collection of shirts.
+  // Item categories listing end
+// Footer
+footer
+  include includes/footer.pug
+  // <?pug  include 'include/footer.pug'  ?>
+// Footer end

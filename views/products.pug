@@ -1,0 +1,124 @@
+doctype html
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Products | Life Style Store
+  link(href='css/bootstrap.css' rel='stylesheet')
+  link(href='css/style.css' rel='stylesheet')
+  script(src='js/jquery.js')
+  script(src='js/bootstrap.min.js')
+// <?pug
+// include 'include/header.pug'
+// ?>
+include includes/header.pug
+
+#content.container
+  // Jumbotron Header
+  #products-jumbotron.jumbotron.home-spacer
+    h1 Welcome to our Lifestyle Store!
+    p
+      | We have the best cameras, watches and shirts for you. No need to hunt around, we have all in one place.
+  hr
+  #cameras.row.text-center
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/5.jpg' alt='')
+        .caption
+          h3 Cannon EOS 
+          p Price: Rs. 36000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/2.jpg' alt='')
+        .caption
+          h3 Nikon EOS 
+          p Price: Rs. 40,000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/3.jpg' alt='')
+        .caption
+          h3 Sony DSLR
+          p Price: Rs. 50000.00
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/4.jpg' alt='')
+        .caption
+          h3 Olympus DSLR
+          p Price: Rs. 50000.00
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+  #watches.row.text-center
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/18.jpg' alt='')
+        .caption
+          h3 Titan Model #301 
+          p Price: Rs. 13000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/19.jpg' alt='')
+        .caption
+          h3 Titan Model #201
+          p Price: Rs. 3000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/20.jpg' alt='')
+        .caption
+          h3 HMT Milan
+          p Price: Rs. 8000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/21.jpg' alt='')
+        .caption
+          h3 Faber Luba #111 
+          p Price: Rs. 18000.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+  #shirts.row.text-center
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/22.jpg' alt='')
+        .caption
+          h3 H&amp;W 
+          p Price: Rs. 800.00 
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/23.jpg' alt='')
+        .caption
+          h3 Luis Phil
+          p Price: Rs. 1000.00
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/24.jpg' alt='')
+        .caption
+          h3 John Zok
+          p Price: Rs. 1500.00
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+    .col-md-3.col-sm-6.home-feature
+      .thumbnail
+        img(src='img/25.jpg' alt='')
+        .caption
+          h3 Jhalsani
+          p Price Rs. 1300.00
+          p
+            a.btn.btn-primary.btn-block(href='login' role='button') Add to cart
+  hr
+footer
+  .container
+    center
+      p Copyright &copy; Lifestyle Store. All Rights Reserved  |  Contact Us: +91 90000 00000

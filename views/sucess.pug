@@ -1,0 +1,23 @@
+doctype html
+head
+  meta(name='viewport' content='width = device-width, initial-scale = 1')
+  title Success | Life Style Store
+  link(href='css/bootstrap.css' rel='stylesheet')
+  link(href='css/style.css' rel='stylesheet')
+// <?pug
+// include 'include/header.pug'
+// ?>
+include includes/header.pug
+
+#content.container-fluid
+  .col-md-12
+    .jumbotron
+      h3(align='center') Your order is confirmed. Thank you for shopping with us.
+      hr
+      p(align='center')
+        | Click 
+        a(href='products') here
+        |  to purchase any other item.
+footer
+  include includes/footer.pug
+  // <?pug  include 'include/footer.pug'  ?>

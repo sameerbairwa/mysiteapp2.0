@@ -1,0 +1,27 @@
+doctype html
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title Settings | Life Style Store
+  link(href='css/bootstrap.css' rel='stylesheet')
+  link(href='css/style.css' rel='stylesheet')
+  script(src='js/jquery.js')
+  script(src='js/bootstrap.min.js')
+// <?pug
+// include 'include/header.pug'
+// ?>
+include includes/header.pug
+#content.container-fluid
+  .row
+    #settings-container.col-lg-4.col-lg-offset-4
+      h4 Change Password
+      form(action='../api/auth/settings' method='POST')
+        .form-group
+          input.form-control(type='password' name='old-password' placeholder='Old Password' required='')
+        .form-group
+          input.form-control(type='password' name='password' placeholder='New Password' required='')
+        .form-group
+          input.form-control(type='password' name='password1' placeholder='Re-type New Password' required='')
+        button.btn.btn-primary(type='submit') Change
+footer
+  include includes/footer.pug
+  // <?pug  include 'include/footer.pug'  ?>
