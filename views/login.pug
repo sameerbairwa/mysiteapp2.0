@@ -26,6 +26,9 @@ include includes/header.pug
         .panel.panel-primary
           .panel-heading
             h4 LOGIN
+            if hashErrors
+              .alert.alert-danger
+                p #{messages}
           .panel-body
             p.text-warning
               i Login to make a purchase
@@ -35,6 +38,7 @@ include includes/header.pug
                   input.form-control(type='email' placeholder='Email' name='email' required='')
                 .form-group
                   input.form-control(type='password' placeholder='Password' name='password' required='')
+                input(type='hidden' name='_csrf' value = csrfToken)
                 button.btn.btn-primary(type='submit' name='submit') Login
                 br
                 br
