@@ -72,6 +72,10 @@ mongoose
     console.log(err);
   });
 
+app.use((req,res,next)=>{
+  res.locals.login = req.isAuthenticated();
+  next();
+}) 
 app.use("/", indexRouter);
 // app.use('/', usersRouter);
 app.use("/api/auth", auth);
