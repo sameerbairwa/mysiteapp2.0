@@ -38,5 +38,4 @@ userShema.methods.encryptPassword = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10, null));
 };
 
-
 module.exports = person = mongoose.model('myappusers', userShema);
