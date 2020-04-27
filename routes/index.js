@@ -91,13 +91,13 @@ router.get("/profile", isLoggedIn, (req, res) => {
 
 module.exports = router;
 
+//created two function isLoggedIn and notLoggedIn for handel user access the pages if user loggedin then he can access the logout, profile, cart and settings, and not logged in then can access login and signup 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
     res.redirect('/');
 }
-
 function notLoggedIn(req, res, next) {
     if (!req.isAuthenticated()) {
         return next();
