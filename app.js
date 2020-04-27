@@ -8,7 +8,6 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
-const validator = require("express-validator");
 
 // bring all routes
 var indexRouter = require("./routes/index");
@@ -47,7 +46,6 @@ app.use(
     extended: false,
   })
 );
-app.use(validator());
 app.use(cookieParser());
 //session middleware
 app.use(session(sess));
