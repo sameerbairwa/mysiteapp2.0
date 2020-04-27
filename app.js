@@ -3,50 +3,28 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const pug = require("pug");
 const bodyparser = require("body-parser");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const flash = require("connect-flash");
+const validator = require("express-validator");
 
 // bring all routes
 var indexRouter = require("./routes/index");
-//const auth = require("./routes/api/auth");
+const auth = require("./routes/api/auth");
 // var usersRouter = require('./routes/users');
 
 var app = express();
+
+require("./config/passportStrategy");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-//app.use(session({ secret: "shhhh", saveUninitialized: true, resave: true }));
-app.use(logger("dev"));
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: false,
-  })
-);
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-// Middleware for bodyparser
-// parse application/x-www-form-urlencoded
-app.use(
-  bodyparser.urlencoded({
-    extended: true,
-  })
-);
-// parse application/json
-app.use(bodyparser.json());
-
-// Middleware for passport
-app.use(passport.initialize());
-
-//session middleware
 var sess = {
-  secret: 'keyboard cat',
+  secret: "keyboard cat",
   resave: false,
   saveUninitialized: true,
   // cookie: {
@@ -54,12 +32,30 @@ var sess = {
   //   sameSite: true,
   //   secure: false
   // }
-}
+};
 
+//Middlewares
+
+app.use(logger("dev"));
+app.use(express.json());
+// parse application/json
+app.use(bodyparser.json());
+// Middleware for bodyparser
+// parse application/x-www-form-urlencoded
+app.use(
+  bodyparser.urlencoded({
+    extended: false,
+  })
+);
+app.use(validator());
+app.use(cookieParser());
+//session middleware
 app.use(session(sess));
-
-//config for jwt
-//require('./strategies/jsonwtStrategy')(passport);
+app.use(flash());
+// Middleware for passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, "public")));
 
 //mongoDB configuration
 const mongodbURL = require("./setup/myurl").mongoURL;
@@ -80,7 +76,7 @@ mongoose
 
 app.use("/", indexRouter);
 // app.use('/', usersRouter);
-//app.use("/api/auth", auth);
+app.use("/api/auth", auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
