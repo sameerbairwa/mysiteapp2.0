@@ -14,76 +14,77 @@ router.use(csrfProtection);
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
-  res.render("index");
+    res.render("index");
 });
 router.get("/index", function (req, res, next) {
-  res.render("index");
+    res.render("index");
 });
 router.get("/cart", function (req, res, next) {
-  if (req.session.userId) {
-    return res.render("cart");
-  } else {
-    res.render("login");
-  }
+    if (req.session.userId) {
+        return res.render("cart");
+    } else {
+        res.render("login");
+    }
 });
 router.get("/settings", function (req, res, next) {
-  res.render("settings");
+    res.render("settings");
 });
 router.get("/signup", (req, res, next) => {
-  //console.log(req.session);
-  var messages = req.flash("error");
-  res.render("signup", {
-    csrfToken: req.csrfToken(),
-    messages: messages,
-    hashErrors: messages.length > 0,
-  });
+    //console.log(req.session);
+    var messages = req.flash("error");
+    res.render("signup", {
+        csrfToken: req.csrfToken(),
+        messages: messages,
+        hashErrors: messages.length > 0
+    });
 });
 router.get("/login", (req, res, next) => {
-  //console.log(req.session);
-  if (req.session.userId) {
-    return res.redirect("/");
-  } else {
-    res.render("login");
-  }
+    //console.log(req.session);
+    var messages = req.flash("error");
+    res.render("login", {
+        csrfToken: req.csrfToken(),
+        messages: messages,
+        hashErrors: messages.length > 0
+    });
 });
 router.get("/success", function (req, res, next) {
-  res.render("success");
+    res.render("success");
 });
 router.get("/products", function (req, res, next) {
-  res.render("products");
+    res.render("products");
 });
 
 // GET /logout
 router.get("/logout", function (req, res, next) {
-  if (req.session) {
-    // delete session object
-    req.session.destroy(function (err) {
-      if (err) {
-        return next(err);
-      } else {
-        return res.redirect("/");
-      }
-    });
-  }
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function (err) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect("/");
+            }
+        });
+    }
 });
 
 // cart
 router.get("/add-to-cart/:id", (req, res) => {
-  var productId = req.params.id;
-  var cart = new cart(req.session.cart ? req.session.cart : {});
-  Product.findById(productId, (err, product) => {
-    if (err) {
-      return res.redirect("/");
-    }
-    cart.add(product, product.id);
-    req.session.cart = cart;
-    console, log(req.session.cart);
-    res.redirect("/");
-  });
+    var productId = req.params.id;
+    var cart = new cart(req.session.cart ? req.session.cart : {});
+    Product.findById(productId, (err, product) => {
+        if (err) {
+            return res.redirect("/");
+        }
+        cart.add(product, product.id);
+        req.session.cart = cart;
+        console, log(req.session.cart);
+        res.redirect("/");
+    });
 });
 
 router.get("/profile", (req, res) => {
-  res.render("profile");
+    res.render("profile");
 });
 
 module.exports = router;
