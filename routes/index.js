@@ -5,12 +5,20 @@ var path = require("path");
 const session = require("express-session");
 const csrf = require("csurf");
 const flash = require("connect-flash");
+const passport = require('passport')
 
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
 //const Cart = require('../models/cart');
 //const Product = require('../models/userCart');
+
+
+
+// if not loggedin then we can access all down routes
+// router.use('/', notLoggedIn, (req, res, next) => {
+//     next();
+// })
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
@@ -19,17 +27,8 @@ router.get("/", (req, res, next) => {
 router.get("/index", function (req, res, next) {
     res.render("index");
 });
-router.get("/cart", function (req, res, next) {
-    if (req.session.userId) {
-        return res.render("cart");
-    } else {
-        res.render("login");
-    }
-});
-router.get("/settings", function (req, res, next) {
-    res.render("settings");
-});
-router.get("/signup", (req, res, next) => {
+
+router.get("/signup", notLoggedIn, (req, res, next) => {
     //console.log(req.session);
     var messages = req.flash("error");
     res.render("signup", {
@@ -38,7 +37,7 @@ router.get("/signup", (req, res, next) => {
         hashErrors: messages.length > 0
     });
 });
-router.get("/login", (req, res, next) => {
+router.get("/login", notLoggedIn, (req, res, next) => {
     //console.log(req.session);
     var messages = req.flash("error");
     res.render("login", {
@@ -55,17 +54,9 @@ router.get("/products", function (req, res, next) {
 });
 
 // GET /logout
-router.get("/logout", function (req, res, next) {
-    if (req.session) {
-        // delete session object
-        req.session.destroy(function (err) {
-            if (err) {
-                return next(err);
-            } else {
-                return res.redirect("/");
-            }
-        });
-    }
+router.get("/logout", isLoggedIn, function (req, res, next) {
+    req.logout();
+    res.redirect('/');
 });
 
 // cart
@@ -83,8 +74,33 @@ router.get("/add-to-cart/:id", (req, res) => {
     });
 });
 
-router.get("/profile", (req, res) => {
+router.get("/cart", isLoggedIn, function (req, res, next) {
+    if (req.session.userId) {
+        return res.render("cart");
+    } else {
+        res.render("login");
+    }
+});
+router.get("/settings", isLoggedIn, function (req, res, next) {
+    res.render("settings");
+});
+router.get("/profile", isLoggedIn, (req, res) => {
     res.render("profile");
 });
 
+
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
+
+function notLoggedIn(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
