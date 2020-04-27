@@ -23,6 +23,9 @@ include includes/header.pug
     .container
       .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3
         h2 SIGN UP
+        if hashErrors
+          .alert.alert-danger
+              p #{messages}
         form(action='../api/auth/signup' method='POST')
           .form-group
             input.form-control(placeholder='Name' name='name' required='')
@@ -36,8 +39,10 @@ include includes/header.pug
             input.form-control(type='text' placeholder='City' name='city' required='')
           .form-group
             input.form-control(type='text' placeholder='Address' name='address' required='')
+            input(type='hidden' name='_csrf' value = csrfToken)
           button.btn.btn-primary(type='submit' name='submit') Submit
+        //p #{csrfToken}
+        
 footer
   include includes/footer.pug
   // <?pug  include 'include/footer.pug'  ?>
-
