@@ -1,6 +1,11 @@
 const express = require("express");
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
+const {
+    check,
+    validationResult
+} = require('express-validator');
 
 const User = require("../models/user");
 
@@ -21,19 +26,7 @@ passport.use(
             passReqToCallback: true,
         },
         (req, email, password, done) => {
-            //   req.checkBody("email", "Invalid Email").notEmpty().isEmail();
-            //   req
-            //     .checkBody("Password", "Invalid password")
-            //     .notEmpty()
-            //     .isLength({ min: 4 });
-            //   var error = req.validationErrors();
-            //   if (error) {
-            //     var messages = [];
-            //     error.forEach((error) => {
-            //       messages.push(error.msg);
-            //     });
-            //     return done(null, false, req.flash("error", messages));
-            //   }
+
             User.findOne({
                     email: email,
                 },
@@ -75,18 +68,28 @@ passport.use(
             passReqToCallback: true,
         },
         (req, email, password, done) => {
-            req.checkBody("email", "Invalid Email").notEmpty().isEmail();
-            req
-                .checkBody("Password", "Invalid password")
-                .notEmpty();
-            var error = req.validationErrors();
-            if (error) {
-                var messages = [];
-                error.forEach((error) => {
-                    messages.push(error.msg);
-                });
-                return done(null, false, req.flash("error", messages));
-            }
+            User.findOne({
+                    email
+                })
+                .then((user) => {
+                    if (!user) {
+                        return done(null, false, {
+                            message: "NO user found with this email"
+                        });
+                    }
+                    bcrypt.compare(password, user.password)
+                        .then(isCorrect => {
+                            if (!isCorrect) {
+                                return done(null, false, {
+                                    message: "Wrong password."
+                                });
+                            } else {
+                                return done(null, user);
+                            }
+                        })
+                        .catch(err => console.log(err));
+                })
+                .catch(err => console.log(err));
         }
     )
 );
