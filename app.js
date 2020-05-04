@@ -8,6 +8,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
+const MongoStore = require('connect-mongo')(session);
 
 // bring all routes
 var indexRouter = require("./routes/index");
@@ -24,13 +25,16 @@ app.set("view engine", "pug");
 
 var sess = {
   secret: "keyboard cat",
-  resave: false,
+  resave: true,
   saveUninitialized: true,
-  // cookie: {
-  //   maxAge: 1000 * 60 * 60,
-  //   sameSite: true,
-  //   secure: false
-  // }
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60,
+    sameSite: true,
+    secure: false
+  }
 };
 
 //Middlewares
@@ -43,12 +47,13 @@ app.use(bodyparser.json());
 // parse application/x-www-form-urlencoded
 app.use(
   bodyparser.urlencoded({
-    extended: false,
+    extended: true
   })
 );
 app.use(cookieParser());
 //session middleware
 app.use(session(sess));
+
 app.use(flash());
 // Middleware for passport
 app.use(passport.initialize());
@@ -72,10 +77,17 @@ mongoose
     console.log(err);
   });
 
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
   res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
   next();
-}) 
+});
+
+// app.get('/products', (req, res) => {
+//   body = req.body.url;
+//   res.json(body);
+// })
+
 app.use("/", indexRouter);
 // app.use('/', usersRouter);
 app.use("/api/auth", auth);
