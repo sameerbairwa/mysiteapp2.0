@@ -10,10 +10,8 @@ const passport = require('passport')
 const csrfProtection = csrf();
 router.use(csrfProtection);
 
-//const Cart = require('../models/cart');
-//const Product = require('../models/userCart');
-
-
+const Cart = require('../models/cart');
+const Product = require('../models/product');
 
 // if not loggedin then we can access all down routes
 // router.use('/', notLoggedIn, (req, res, next) => {
@@ -50,7 +48,19 @@ router.get("/success", function (req, res, next) {
     res.render("success");
 });
 router.get("/products", function (req, res, next) {
-    res.render("products");
+    Product.find().then(docs => {
+        var productChuncks = [];
+        var chunkSize = 4;
+        // console.log(docs);
+        for (var i = 0; i < docs.length; i += chunkSize) {
+            productChuncks.push(docs.slice(i, i + chunkSize));
+        }
+        //console.log(productChuncks);
+        res.render("products", {
+            title: "Shoping Cart",
+            products: productChuncks
+        });
+    }).catch(err => console.log(err));
 });
 
 // GET /logout
@@ -59,10 +69,10 @@ router.get("/logout", isLoggedIn, function (req, res, next) {
     res.redirect('/');
 });
 
-// cart
+// cart router
 router.get("/add-to-cart/:id", (req, res) => {
     var productId = req.params.id;
-    var cart = new cart(req.session.cart ? req.session.cart : {});
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
     Product.findById(productId, (err, product) => {
         if (err) {
             return res.redirect("/");
@@ -98,6 +108,7 @@ function isLoggedIn(req, res, next) {
     }
     res.redirect('/');
 }
+
 function notLoggedIn(req, res, next) {
     if (!req.isAuthenticated()) {
         return next();
