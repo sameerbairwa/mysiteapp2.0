@@ -1,4 +1,4 @@
 module.exports = {
     mongoURL: "",
-    secret: "mysiteappsecret"
+    secret: ""
 }
