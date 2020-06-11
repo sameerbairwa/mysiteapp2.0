@@ -7,6 +7,8 @@ This is an online product shopping site. Users can signup, sign, with authentica
 
 # How to run
 
+in setup/myurl => setup your mongo Url mongodb+srv:
+
 1. go to project directory
 2. install nodejs and npm, nodemon
 3. in terminal type > nodemon
