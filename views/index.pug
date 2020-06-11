@@ -20,7 +20,11 @@ head
 
 include includes/header.pug
 
-
+//- .div 
+//-   .row
+//-     .col-sm-6.col-md-4.col-md-offset-4.col-sm-offset-3
+//-       .div(id='success' class=`alert alert-danger ${if noMessage}hidden`)
+//-         #{sucessMsg}
 #content
   // Main banner image
   #banner_image
@@ -33,6 +37,7 @@ include includes/header.pug
           a.btn.btn-danger.btn-lg.active(href='products') Shop Now
   // Main banner image end
   // Item categories listing
+
   .container
     #item_list.row.text-center
       .col-sm-4

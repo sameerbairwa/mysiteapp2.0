@@ -12,10 +12,12 @@
         if login
           li
             a(href='cart')
-              span.badge
-              | #{session.cart}
+              
               span.glyphicon.glyphicon-shopping-cart
               |  Cart
+              span.badge
+                if(session.cart)
+                  h7 #{session.cart.totalQty}
           li
             a(href='settings')
               span.glyphicon.glyphicon-user

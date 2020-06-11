@@ -8,7 +8,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash");
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require("connect-mongo")(session);
 
 // bring all routes
 var indexRouter = require("./routes/index");
@@ -28,13 +28,13 @@ var sess = {
   resave: true,
   saveUninitialized: true,
   store: new MongoStore({
-    mongooseConnection: mongoose.connection
+    mongooseConnection: mongoose.connection,
   }),
   cookie: {
     maxAge: 1000 * 60 * 60,
     sameSite: true,
-    secure: false
-  }
+    secure: false,
+  },
 };
 
 //Middlewares
@@ -47,7 +47,7 @@ app.use(bodyparser.json());
 // parse application/x-www-form-urlencoded
 app.use(
   bodyparser.urlencoded({
-    extended: true
+    extended: true,
   })
 );
 app.use(cookieParser());

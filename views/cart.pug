@@ -12,22 +12,30 @@ head
 
 include includes/header.pug
 
-.row.decor_bg
-  .col-md-6.col-md-offset-3
-    table.table.table-striped
-      thead
-        tr
-          th Item Number
-          th Item Name
-          th Price
-          th
-      tbody
-        tr
+if products
+  .row.decor_bg
+    .col-md-6.col-md-offset-3
+      table.table.table-striped
+        thead
+          tr
+            th Item Quantity
+            th Item Name
+            th Price
+        tbody
+          each product in products
+            tr
+              td #{product.qty}
+              td #{product.item.title}
+              td #{product.price}
           td
           td Total
-          td Rs 
+          td Rs #{totalPrice}
           td
             a.btn.btn-primary(href='success') Confirm Order
+else
+  .row.decor_bg
+    .col-sm-6.col-md-6.col-md-offset-3.col.sm.col-sm-offset-3
+      h2 No Item in Cart
 footer
   include includes/footer.pug
 

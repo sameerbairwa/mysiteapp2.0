@@ -19,10 +19,12 @@ router.post('/signup', passport.authenticate('local-signup', {
     failureFlash: true
 }));
 
-router.post('/login_submit', passport.authenticate('local-signin',{
-    successRedirect:'/profile',
-    failureRedirect:'/login',
-    failureFlash:true
-}))
+router.post('/login_submit', passport.authenticate('local-signin', {
+    successRedirect: '/profile',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
 
 module.exports = router;
+
